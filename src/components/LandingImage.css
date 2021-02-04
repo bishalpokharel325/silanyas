@@ -1,0 +1,51 @@
+.landingimage {
+  width: 100%;
+  height: 50%;
+  position: relative;
+}
+.landingimage:hover img {
+  opacity: 0.5;
+}
+.landingimage:hover input {
+  border: solid 1px darkcyan;
+}
+.landinginput:hover {
+  border: solid 3px darkcyan;
+}
+.landingimage img {
+  width: 100%;
+}
+.landingcenter {
+  position: absolute;
+  top: 10%;
+  left: 18%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.landingcenter h1 {
+  color: darkcyan;
+  text-shadow: 2px 2px black;
+  font-size: 50px;
+  text-align: center;
+}
+.landingcenter input {
+  padding: 15px 25px;
+  border: none;
+  outline: none;
+  width: 800px;
+  font-size: 25px;
+}
+.landingcenter .landinginput {
+  margin-top: 150px;
+  box-shadow: 10px 10px 10px -9px black;
+  border-radius: 5px;
+}
+@media only screen and (max-width: 500px) {
+  .landingcenter h1 {
+    font-size: 15px;
+  }
+  .landingcenter input {
+    width: 400px;
+  }
+}

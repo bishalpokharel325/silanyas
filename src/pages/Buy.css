@@ -1,0 +1,46 @@
+.buy__body {
+  display: flex;
+}
+.buy__left {
+  width: 45%;
+}
+.buy__right {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+  box-shadow: 7px 0px 7px -9px black;
+  padding: 0px 10px;
+  overflow-y: auto;
+}
+.buy__left {
+  box-shadow: 7px 0px 7px -9px black;
+}
+.buy__right__top {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  align-items: center;
+  position: sticky;
+  top: 0%;
+  background-color: white;
+  z-index: 999;
+}
+.right__listings {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media only screen and (max-width: 600px) {
+  .buy__left {
+    display: none;
+    width: 0%;
+  }
+  .buy__right {
+    width: 100%;
+  }
+  .buy__right__top {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,653 @@
+1) npm install react-router-dom
+2) Create file Routes.js
+3) in Router.js
+
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
+
+4) replace div with:
+ import React from 'react'
+import './Routes.css'
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import Main from './Main'
+import About from './About'
+
+function Routes() {
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact component={Main}>
+                
+                </Route>
+                <Route path="/home" component={Main}>
+                
+                </Route>
+                <Route path="/about" component={About}>
+                
+                </Route>
+            </Switch>
+        </BrowserRouter>
+    )
+}
+
+export default Routes
+
+5)  Navbar.js
+
+import React from 'react'
+import { Link } from 'react-router-dom';
+function Navbar() {
+    return (
+        <div>
+            <Link to="/"><span>Home</span></Link>
+            <Link to="/about"><span>About</span></Link>
+        </div>
+    )
+}
+
+export default Navbar
+
+#To make link active do this:
+<NavLink to="/signin" activeClassName="header__option__active"
+                        >
+                        <StorefrontIcon fontSize="large"/>
+                    </NavLink>
+
+
+
+
+
+
+6) Footer.js
+
+import React from 'react'
+
+function Footer() {
+    return (
+        <div>
+            <h1>Footer Contents</h1>
+        </div>
+    )
+}
+
+export default Footer
+
+
+7) Home.js
+import React from 'react'
+import Footer from './Footer'
+import Navbar from './Navbar'
+
+function Main() {
+    return (
+        <div>
+            <Navbar/>
+            Main Page
+            <Footer/>
+            
+        </div>
+    )
+}
+
+export default Main
+
+
+8) About.js
+
+import React from 'react'
+import Footer from './Footer'
+import Navbar from './Navbar'
+
+function About() {
+    return (
+        <div>
+            <Navbar/>
+            About us page
+            <Footer/>
+        </div>
+    )
+}
+
+export default About
+
+
+
+
+
+.....................................
+.....................................
+
+
+
+2) Props: THey are user defined attributes for the components
+yedi components ko elements ko content change garnu paro flexibly then use props
+
+i) in a project, create a <Card/> Component with bootstrap without using prop
+ii) In Card.js, write props in function parameters and props.title, props.img and props.description in 
+the component defination
+
+
+import React from 'react'
+
+function Card(props) {
+    return (
+        
+            <div className="card" style={{width: '18rem'}}>
+        <img src={props.img} className="card-img-top" alt="..." />
+        <div className="card-body">
+          <h5 className="card-title">{props.title}</h5>
+          <p className="card-text">{props.description}</p>
+          <a href="#" className="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    )
+}
+
+export default Card
+
+
+iii) Calling:
+
+<Card
+           img="./logo512.png" 
+           title="Hello World"
+           description="Descriptions"
+           />
+
+.......................................................
+........................................................
+3) Map(): yedi data dherai cha vane we cannot call the function thousand of times? 
+..........................................
+
+1st::::
+
+
+ Create a js file carddata.js and create an array variable which contains 
+prop data to pass
+
+
+##You can do it in same file as well but we need this data in upcoming lessons
+## unique Id pani dinu parxa for map to identify the components... 
+otherwise code run gareni error dekhaucha
+
+const carddata=[
+    {
+        id:1,
+        img:"./logo192.png",
+        title:"Hello World",
+        description:"This is hellow world application"
+
+    },
+    {
+        id:2,
+        img:"./logo192.png",
+        title:"Hello World 2",
+        description:"This is hellow world application"
+
+    },
+    {
+        id:3,
+        img:"./logo192.png",
+        title:"Hello World 3",
+        description:"This is hellow world application"
+
+    },
+    {
+        id:4,
+        img:"./logo192.png",
+        title:"Hello World",
+        description:"This is hellow world application"
+
+    },
+    {
+        id:5,
+        img:"./logo192.png",
+        title:"Hello World 4",
+        description:"This is hellow world application"
+
+    },
+]
+export default carddata
+
+......
+2nd::
+
+.......
+just above functional component where you want to use .. create a function with 'item' parameter to fetch data and return the Component with props
+item indicates single data and map will loop that data
+## it must contain Key element extra
+function fetchData(item){
+return(
+	<Card key="id" title="item.title" description="item.description" img="item.img"/>
+)
+}
+
+
+
+...........
+3rd::
+..........
+import carddata variable
+
+{carddata.map(fetchData)} only all data will be shown and looped
+
+
+
+
+.....
+Filter
+...........
+
+const numbers=[5,6,10,12,15]
+const newNumbers=numbers.filter(
+  function(x){
+    return x>10
+  }
+)
+console.log(newNumbers)
+
+
+Using Arrow Function:
+
+Typical arrow function
+const app=()=>{
+
+}
+
+filter function:
+
+const newNumbers=numbers.filter((x)=>{
+  return x>10
+})
+console.log(newNumbers)
+
+if only single return statement line  then no curly bracket and return statement
+const newNumbers=numbers.filter((x)=>x>10)
+console.log(newNumbers)
+
+
+if only one argument no bracket:
+const newNumbers=numbers.filter(x=>x>10)
+.........
+Reduce
+.........
+accumulate by combining new value
+
+syntax:
+
+const numbersReduce=numbers.reduce((accumulator,currentvalue)=>{
+    console.log('accumulator'+accumulator)
+    console.log('currentvalue'+currentvalue)
+    return accumulator+currentvalue
+}
+)
+
+
+
+
+
+Conditional rendering with terniary operator and using and logic gates
+
+show login form only when user is not authenticated
+
+
+
+Youtube:
+.......
+8 conditional rendering methods: only use terniary and and operator
+
+
+1) If/Else ... return the entire value
+
+
+
+
+
+
+2) Return Null when you want nothing to render
+3) Element variables: store JSX in a variable
+4) Terniaries, take your if statement inline
+
+condition? true logic : false logic
+
+5) Short-Curcuit && display if truthy
+if true then show if not true then null ko shortcut
+
+
+{loggedin && CardElement}: if logged in then execute CardElement
+
+feri react native ma yo function use nagarne dont use and for conditional rendering becoz it does not like it
+so good to use terniary
+
+6) Immedialtely invoked functional expression
+too confusing
+
+
+7) Use sub component as appropriate
+if we add all sort of  conditional logic it becomes messy so create new component if code becomes larger
+user ternery logic then
+
+8) Create your own IF component
+like a react router 
+
+
+9) HOC's control wheather component is rendered
+
+
+
+
+How to integrate bootstrap in our project:
+1) npm install bootstrap popper.js jquery
+2) in index.js import these files:
+
+ ;
+
+3) Copy paste the bootstrap navbars.... with following changes
+/> close inputs
+find and replace class with className
+
+
+
+EVENTHANDLING:
+event is always camel case
+creaete from with button to change color over hover
+input garda p le ni dekhos
+title ko value change garna use Effect laune
+
+
+code:
+const [back,setBack]=useState("red")
+    const [keys,setKeys]=useState("hello")
+    useEffect(() => {
+        document.title=`${keys}`
+    })
+    const handleMouseOver=()=>{
+        setBack("blue")
+    }
+    const handleMouseOut=()=>{
+        setBack("green")
+    }
+    const handleKeyUp=(e)=>{
+        setKeys(e.target.value)
+    }
+    return (
+        <div className="form">
+            <form>
+                <label>Sign In</label>
+                <Inputform type="text" placeholders="Enter Your Username" names="username"/>
+                <Inputform type="password" placeholders="Enter Your Password" names="password"/>
+                <input onChange={handleKeyUp} id="inputs" value={keys}/>
+                <p>{keys}</p>
+                <button type="submit" style={{backgroundColor:back}} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>Sign In</button>
+            </form>
+        </div>
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+useEffect
+DOM lai operate after every component loading
+change title of document using useEffect
+
+use backtick dollar to print variable inside use Effect
+
+document.title=`${keys}`
+
+
+
+background image in div
+<div className="story" style={{ backgroundImage: `url(${isrc})` }}>
+            <Avatar className="avatar" src={asrc}/>
+            <h5>{title}</h5>
+        </div>
+
+
+
+
+
+fetching data using useEffect
+
+difference between axios,fetch,redux condense api j use gare ni huncha
+
+we use axios
+1) npm install axios
+2) go to jason placeholder website
+https://jsonplaceholder.typicode.com/
+https://jsonplaceholder.typicode.com/posts
+
+
+3) make any js page
+4) const [post,setPost]=useState([])
+5)fetch data:
+
+useEffect(()=>{
+        axios
+        .get('https://jsonplaceholder.typicode.com/posts')
+        .then(res=>{
+            console.log(res)
+        })
+        .catch(err=>console.log(err))
+    },[])
+
+
+emplty array pass garda use effect lai ekchoti matra load huna dine
+we can see all data
+
+
+to show only data: replace res> res.data
+console.log(res.data)
+
+6)hold that data in state post variable
+instead of console.log do >>> setPost(res.data)
+
+7)map it in any component with prop
+{post.map((item)=>{
+                return <Listing key={item.id} sqft={item.title} bds={item.body} price={item.userId}/>
+            })}
+8) Show only top 10 data:
+
+ i) if(item.id<10){
+                     return <Listing key={item.id} price={item.title} src={item.url}/>
+                }
+
+ii) url?_limit=10
+9) `limit=${variable}`
+
+10) Load more functionality
+
+const [user, setUser] = useState([])
+    const [page, setPage] = useState(10)
+    useEffect(()=>{
+        axios
+        .get('https://jsonplaceholder.typicode.com/posts')
+        .then(res=>{
+            setUser(res.data)
+        })
+        .catch(err=>console.log(err))
+    },[])
+    
+    return (
+        <div>
+            <Navbar/>
+           {user.map((item)=>{
+               if(item.id<=page){
+                   return(
+                  <div>
+                      <h1>{item.title}</h1>
+                      <p>{item.body}</p>
+                    </div>
+               )
+               }
+               
+           })}
+           <button onClick={()=>{
+               setPage(page=>page+10)
+           }}>See more......</button>
+
+
+see more sir ko :
+function Homes() {
+ 
+    const [user, setUser] = useState([])
+    const [page, setPage] = useState(10)
+    const [vis,setVis]=useState("block")
+    useEffect(()=>{
+        axios
+        .get('https://jsonplaceholder.typicode.com/posts')
+        .then(res=>{
+            setUser(res.data)
+        })
+        .catch(err=>console.log(err))
+    },[])
+
+    const handleData=()=>{
+        setPage(prev=>prev+10)
+    }
+
+    const handleButtonShow=()=>{
+        return(
+         page<user.length && <button onClick={handleData}>See More</button>
+        )
+    }
+    
+    return (
+        <div>
+            <Navbar/>
+           {user.slice(0,page).map((item)=>{
+               
+                   return(
+                  <div>
+                      <h1>{item.title}</h1>
+                      <p>{item.body}</p>
+                    </div>
+               )
+               
+               
+           })}
+           {handleButtonShow()}
+           
+            <Footer/>
+        </div>
+    )
+}
+
+
+style components:
+
+const Title=styled.h1`color:red`
+    return (
+        <div>
+            <Navbar/>
+           <Title>Hello world</Title>
+        <Footer/>
+        </div>
+    )
+}
+
+Context:
+.........
+
+context API:
+APP>Com X>Com Y>Com Z craete nested components
+App ma firstname dene ra zma print graune
+1) CreateContext() : create context Api
+
+const Firstname=createContext()
+
+
+
+2) Provider :
+ 
+<Firstname.Provider value={"Ram"}>
+       <X/>
+</Firstname.Provider>
+export {Firstname};
+
+3) useContext to use that data
+
+import React,{useContext} from 'react'
+import { Firstname } from './App'
+
+const Z = () => {
+    const fname=useContext(Firstname)
+    return (
+        <div>
+            This is {fname}
+        </div>
+    )
+}
+
+export default Z
+
+
+4) using consumer:
+
+<First.Name.consumer>
+{()={
+return 
+}
+
+
+Home Message heru current page lai icon change garera garne
+
+use NavLink instead of Link and add active class name 
+ <NavLink to="/signin" activeClassName="header__option__active"
+                        >
+                        <StorefrontIcon fontSize="large"/>
+                    </NavLink>
+
+
+
+
+
+
+
+#Spread Operator:
+...
+
+kunai variable data lai arko data ma gayera concate gareko
+const profile=["Anil","Poudel"]
+const Details=[24,"Male"]
+detail ma anil poudel ni chaio
+const Details=[...profile[],24,"Male"]
+
+
+
+
+
+
+
+
+
+GITHUB:
+
+creating repository
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/bishalpokharel325/sanjal.git
+git push -u origin master
+
+copy these lines of code
+shift insert to any folder

@@ -1,0 +1,18 @@
+.main__middle {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9fb;
+}
+.main__middle__top {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  text-align: center;
+  margin: 50px 0px;
+}
+.main__middle__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 50px;
+}

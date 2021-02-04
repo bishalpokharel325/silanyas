@@ -1,0 +1,751 @@
+Dhan sir Django Tutorials from class and Videos:
+
+
+
+Video no 1: Installation and Introduction:
+...................................................................................................
+1) Installation:
+
+1) GO to djangoproject.com and click download 
+2) TO install globally pip install wala link copy and paste and run
+
+....................................................................................................
+
+2) To create new Django project:
+
+
+1) Make New Folder "DjangoApplication"
+2) Open that folder and click on location bar type "cmd" command prompt kholne
+3) Create Virtual Environment "PythonVE" >>>>> python -m venv PythonVE
+4) Activate Virtual Environment: PythonVE\Scripts\activate
+5) Install all required packages in Virutal Environment:
+	a) django
+	b) virtualenv
+	c) ckeditor: pip install django-ckeditor
+	d) pillow
+	e) Crispy form: pip install django-crispy-forms
+6) Create requirements.txt file: pip freeze>requirements.txt
+7) start django project: django-admin startproject MainHub
+8) store secret key in separate python file: 
+	i) open the project
+	ii) create secret.py in MainHub directory beside setting.py
+	iii) secret.py ma paste secret key in setting.py : KEY = 'ygfd60e33%5yu2qj&zj57=5gf98s3e=l@thpd2)s0rwvt41ok9'
+	iv) setting.py ma :
+		from .secret import KEY
+		SECRET_KEY = KEY
+9) open project folder... create .gitignore.txt text file and ignore two files:
+/PythonVE/
+MainHub/MainHub/secret.py
+
+then, rename the gitignore file:  ren .gitignore.txt .gitignore
+
+10) github ma upload this repository:
+	i) create repository with same name as project
+	ii) tya deko instructions follow: git init
+	iii) git add .
+	iv) git commit -m "first commit"
+	v) git remote add origin https://github.com/bishalpokharel325/DjangoApplication.git
+	vi) git push -u origin master
+
+*** Clone garna git clone https://github.com/bishalpokharel325/DjangoJobPortal
+
+
+......................................................................................
+3) Create a New Application:
+
+1) Open Pycharm and open this project
+2) in terminal: cd MainHub
+3) py manage.py startapp news
+4) in setting.py register all apps:
+	i) 'ckeditor'
+	ii) 'news.apps.NewsConfig'
+	iii) 'crispy_forms'
+5) test by applying: py manage.py runserver ... server should run smoothly
+.......................................................................................
+
+4) Initiate Urls and views:
+
+	i) MainHub/urls:
+
+		from django.contrib import admin
+		from django.urls import path,include
+
+			urlpatterns = [
+    			path('admin/', admin.site.urls),
+    			path('', include('news.urls'))
+			]
+
+	ii) make new urls.py in news folder:
+
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index,name='home'),
+    path('home', views.index,name='home'),
+    path('about', views.about,name='about'),
+    path('contact', views.contact,name='contact'),
+    path('register', views.register,name='register'),
+    path('login', views.login,name='login'),
+]
+
+	iii) views.py
+		
+		from django.shortcuts import render
+
+		# Create your views here.
+		def index(request):
+    			return render(request,"frontend/pages/home.html")
+		def about(request):
+    			return render(request,"frontend/pages/about.html")
+		def contact(request):
+    			return render(request,"frontend/pages/contact.html")
+		def register(request):
+    			return render(request,"frontend/pages/register.html")
+		def login(request):
+    			return render(request,"frontend/pages/login.html")
+
+.............................................................................................
+5) Templates and folder creation:
+
+i) make a new folder "templates" in app folder news folder
+ii) register 'templates' in setting.py
+iii) create folder and html structure as follow:
+
+
+
+(news) ...... (templates)....(frontend)...........(master,pages,layout)
+(master)...... master.html
+(pages) home, about, contact, register, login
+(layout) header, footer, navbar
+
+iv) header.html ma upto <body> samma rakhne without any spaces
+v) footer.html ma upto </body> dekhi below rakhne without any spaces
+vi) navbar.html ma:
+
+<a href="{% url 'home' %}"> home</a>
+<a href="{% url 'about' %}"> about</a>
+<a href="{% url 'contact' %}"> contact</a>
+<a href="{% url 'login' %}"> login</a>
+<a href="{% url 'register' %}"> register</a>
+
+
+vii) master.html
+
+{% include 'frontend/layout/header.html' %}
+{% include 'frontend/layout/navbar.html' %}
+{% block content%}
+{% endblock %}
+{% include 'frontend/layout/footer.html' %}
+
+viii) home, about, contact, login, register.html ma
+
+{% extends 'frontend/master/master.html' %}
+{% block content%}
+<h1> Hello Home page</h1>
+{% endblock %}
+..............................................................................
+
+
+6) Loading STATIC css,image and js files:
+
+CSS and JS files:
+
+i) make a new folder in news named 'static'>>> style.css and body background blue
+ii) header.html ma 
+	html mathi {% load static %}
+iii) link ma: <link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+..................................................................
+
+7) Creating Super user and editing Admin page:
+
+1) py manage.py migrate
+2) py manage.py createsuperuser add username and pw email
+3) urls.py from parent folder ma:
+
+admin.site.site_header="Django Header"
+admin.site.site_title="Title "
+admin.site.index_title="Index Title"
+
+4) runserver.. open /admin then login to superuser account there u can see the results
+
+.....................................................................
+
+Create MODEL for dynamic Content:
+
+8) model.py ma:
+
+from ckeditor.fields import RichTextField
+# Create your models here.
+class Slider(models.Model):
+    title=models.CharField(max_length=150,unique=True, null=True, blank=True)
+    description=RichTextField()
+    image=models.ImageField(upload_to="Slider")
+    status=models.BooleanField(default=0)
+    created_at=models.DateField()
+    slug=models.CharField(max_length=150,unique=True)
+
+
+
+in order for making foriegn key in other app 
+realtor = models.ForeignKey('realtors.Realtor', on_delete=models.CASCADE,null=True,blank=True)
+
+#name of object as title
+def __str__(self):
+	return self.title
+
+
+#for check box:
+GENDER_MALE = "Male"
+GENDER_FEMALE = "Female"
+GENDER_CHOICE = (
+    (GENDER_MALE, "M"),
+    (GENDER_FEMALE, "F"),
+)
+
+gender = models.CharField(max_length=15, choices=GENDER_CHOICE, default=GENDER_MALE)
+
+
+
+2) Register the slider in admin.py:
+
+# admin ma list jasta ko tyestai dekhauna
+
+from .models import Slider
+# Register your models here.
+admin.site.register(Slider)
+
+3) py manage.py makemigrations
+	py manage.py migrate
+
+
+4) ramro banauna date heru serach filter garne banauna
+
+from .models import Slider
+# Register your models here.
+# admin.site.register(Slider)
+@admin.register(Slider)
+class adminSlider(admin.ModelAdmin):
+    list_display = ['title','status']
+    search_fields = ['title','status']
+    date_hierarchy = 'created_at'
+    prepopulated_fields = {'slug':['title']}
+    list_per_page = 2
+
+
+5) image upload huda url specify for media and links
+
+1) product_image = models.ImageField(null=True,blank=True) dont put upload_to
+
+2) setting.py 
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL='/media/'
+
+3)  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+6) Keep user as and object and prepopulate the current user and do not give option
+	step 1: created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=1)
+	step 2: in admin.py
+	   exclude = ['created_by']
+
+    def save_model(self, request, obj, form, change):
+        obj.created_by = request.user
+        obj.save()
+
+	step 3: 
+
+.......................................................................
+
+9) Slider ko data display in the page:
+....................................................................
+
+1) views.py ma 
+
+from .models import Slider
+
+# Create your views here.
+def index(request):
+    data={'sliderData':Slider.objects.all()}
+    return render(request,"frontend/pages/home.html",data)
+
+
+
+
+2) home.html ma
+
+{% for slider in sliderData %}
+{{slider.title}}
+{{slider.description}}
+<a href=""{{slider.image.url}}></a><img src="{{slider.image.url}}">
+{% endfor %}
+
+.....................................
+10) Handling Requests:
+
+suppose we have ecommerce website with products displaying in home page
+we need to make a program where when we click category: shoe button we get products with category shoe
+
+1) in html a tag 
+
+{% for category in categoryData %}
+<a class="btn btn-primary" href="/?category={{category.id}}" role="button">{{category.category_name}}</a>
+{% endfor %}
+
+2) inside def index(request): get that query from buttons
+print(request.GET) 
+test these and learn:
+i) 	?orderBy=price&category=2 
+	print(request.GET.get("category"))
+	print(request.GET.get("orderBy"))
+ii) 
+	def index(request):
+    categoryID=request.GET.get('category')
+    if categoryID:
+        all_products=Product.objects.filter(product_category=categoryID)
+    else:
+        all_products=Product.objects.all()
+    all_Category=Category.objects.all()
+    context = {
+        'productData': all_products,
+        'categoryData':all_Category,
+    }
+    return render(request, "frontend/pages/home.html", context)
+
+iii) Add all button to show all products and also show product when home is refreshed
+
+
+<a class="btn btn-primary" href="/" role="button">ALL</a>
+...............................................................
+10) Create a product detail page
+...........................................................
+1) create slug field in models:
+slug=models.CharField(max_length=150,unique=True,null=True,blank=True)
+
+2) prepopulate slug field by product name in admin.py 
+prepopulated_fields = {'slug':['name']}
+
+3) add url in urls.py:
+path('product-detail/<slug:slug>', views.product_detail,name='product-detail'),
+
+4) in views.py:
+
+def product_detail(request, slug):
+    all_product = Product.objects.filter(slug=slug)
+    all_category = Product.objects.all()
+    productData = {'productData': all_product, 'categoryData': all_category}
+    return render(request, "frontend/pages/product-detail.html", productData)
+
+5) create a new file product-detail.html and
+	{% for product in productData %}
+		{{product.name}}
+		{{product.description}}
+	{% endfor %} 
+
+6) link for that slug page in store page:
+	<a href="/product-detail/{{product.slug}}">
+............................................................................
+11) Register customer and add it into data base:
+
+step-1: in html page create form and do following settings
+	i) form action=""
+	ii) method="post"
+	iii) {% csrf_token %}
+	iv) button ma type="submit" formmethod="post"
+	v) give name to each inputs
+
+step-2: in view.py recieve those data
+	#test if post method is working and then fill those data into the tables:
+
+	i) print(request.method) ?? k print huncha
+	ii) if request.method=='POST':
+		print("post method")
+	iii) if request.method=='POST':
+		print(request.POST.get("first_name")
+	iv) you can create your own object in view.py by 
+	customer=Customer(first_name="first name",) etc
+	v) fill all those data into the table
+	vi) customer.save()
+	code:
+
+
+    	def signup(request):
+    context = {}
+    if request.method == 'POST':
+        print(request.POST.get('gender'))
+        customer = Customer(first_name=request.POST.get('first_name'), last_name=request.POST.get('last_name'),
+                            email=request.POST.get('email'), password=request.POST.get('password'),
+                            gender=request.POST.get('gender'))
+        customer.save()
+    return render(request, "frontend/pages/sign up.html", context)
+
+step-3: in signup.html
+
+{% if error %}
+            <div class="alert alert-danger" role="alert">
+                    {{error}}
+            </div>
+{% endif %}
+step-4: Validations
+i) if there is existing email id then do not save throw error:
+if Customer.objects.filter('email'):
+	error message
+
+ii) if password and repassword doesnot match then error
+        if request.POST.get('password')!=request.POST.get('repassword'):
+            error_message="Password does not match"
+step:5 prepopulate after error message shown:
+values={
+                "first_name":request.POST.get('firstname'),
+                "last_name":request.POST.get('lastname'),
+                "email":request.POST.get('email'),
+                "phoneno":request.POST.get('phoneno')
+            }
+
+    return render(request, 'frontend/pages/signup.html',{'error':error_message,'value':values})
+
+# html fiel ma:
+input value="value.first_name"
+
+
+step:6 
+
+#from page itself
+
+Password hash before saving:
+	customer.password=make_password(customer.password)
+	customer.save()
+while saving model:
+
+    def save_model(self, request, obj, form, change):
+        obj.customer_created_by = request.user
+        obj.password=make_password(obj.password)
+        obj.save()
+	
+
+
+
+.................................................
+12) How to show product according to first post first show?
+all_product = Product.objects.all().order_by("-id")
+...............................................
+
+
+
+13) We can fetch data from table in python file:
+	all_customers=Customer.objects.all()
+    for customer in all_customers:
+        print(customer.first_name)
+
+
+	
+
+...............................................
+14) Create a LOGIN PAGE:
+step 1: Create a login page with email and password field
+step 2: create view and url
+step 3: validate if email exist and password matches then print those data
+
+
+def signin(request):
+    error_message=None
+    isemail=False
+    passwordmatch=False
+    postemail=request.POST.get("email")
+    postpassword=request.POST.get('password')
+    all_Customer=Customer.objects.all()
+    for customer in all_Customer:
+        if customer.email==postemail:
+            isemail=True
+            if check_password(postpassword,customer.password):
+                passwordmatch=True
+                print(f"{customer.email} and {customer.password}")
+		return redirect("home")
+    if isemail==False:
+        error_message="Email Id Does not exist"
+    if passwordmatch==False and isemail==True:
+        error_message="Email and Password does not match"
+    return render(request, 'frontend/pages/signin.html',{'error':error_message})
+
+step-4: Sessions:
+
+# to request session from browser:
+inside logic for successful login in login.py:
+request.session['logged_customer_id']=customer.id
+
+#in each and every page function retrieve the data:
+ customer_id = request.session.get("logged_customer_id")
+    logged_customer = Customer.objects.filter(pk=customer_id)
+and 
+productData = {'productData': all_product, 'categoryData': all_category,"logged_customer":logged_customer}
+    return render(request, "frontend/pages/product-detail.html", productData)
+
+
+#in profile page we can give information after passing into view :
+% for log in logged_customer %}
+<h1> {{log.first_name}}</h1>
+<h1> {{log.last_name}}</h1>
+<h1> {{log.email}}</h1>
+<h1> {{log.phone}}</h1>
+{% endfor %}
+
+step-5: log out:
+
+#create url, view and html 
+
+in view write:
+request.session.clear()
+return redirect("login")
+
+
+
+
+
+
+///////////////////////////Django Rest Framework//////////////////
+
+step-1: After Creating virtual environment, pip install djangorestframework
+	create project "MainHub"and register in settings.py as 'rest_framework',
+step-2: After creating models and migrating it make a serializers.py in app folder
+
+from rest_framework import serializers
+
+from .models import Article
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = ['id', 'title', 'description']
+
+
+step-3: 
+
+#1)) in urls lets say "" page we can:
+	i) add data to table POST in JSON format
+	ii) view data from table POST in JSON format
+
+#2) in urls "details/<int:pk>" we can see specific data edit and delete
+
+..............
+step-4: 
+...............
+
+in urls.py in app folder:
+
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path('', views.index,name="home"),
+    path('details/<int:key>', views.detail,name="detail")
+]
+
+
+..............
+step-5:
+...............
+in view.py: 
+
+
+for first url:
+
+
+@api_view(['GET', 'POST'])
+def index(request):
+    if request.method == 'GET':
+        articles = Article.objects.all()
+        serializer = ArticleSerializer(articles, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+for second url:
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def detail(request, key):
+    try:
+        article = Article.objects.get(pk=key)
+    except Article.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ArticleSerializer(article)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ArticleSerializer(article, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        article.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+...................
+step-6: Authentication
+---------------......
+show detail page and permit put,delete and edit only if appropriate admin is logged in admin panel
+
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import permission_classes
+
+
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes((IsAuthenticated,)) 
+def detail(request, key):
+    try:
+        article = Article.objects.get(pk=key)
+    except Article.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ArticleSerializer(article)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ArticleSerializer(article, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        article.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+go to post man>> authorization>> basic authorization to do the postman works 
+
+................
+step-7:authorize using custom model
+...............
+
+
+step:1: create model for abstract user field
+
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+
+class UserAccountManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+
+        user.set_password(password)
+        user.save()
+
+        return user
+
+class UserAccount(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(max_length=255, unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserAccountManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    def get_full_name(self):
+        return self.first_name
+
+    def get_short_name(self):
+        return self.first_name
+    
+    def __str__(self):
+        return self.email
+
+
+step-2 : In settings.py do this:
+
+AUTH_USER_MODEL='MainHub.UserAccount'
+
+
+
+
+
+#how to filter querysets .... 
+example... querysets of slug=slug, is_published=True and description contains certain key word
+queryset=Listing.objects.filter(slug=slug)
+queryset=queryset.filter(is_published=True)
+queryset=queryset.filter(description_icontains=keywords)
+
+#filter greater than equal to price
+queryset=Listings.objects.filter(gte=price)
+from previous querysets
+queryset=queryset.filter(gte=price)
+
+#filter exact string
+queryset=queryset.filter(home_type_iexact=home_type)
+
+#filter keywords in any field
+queryset=queryset.filter(description_icontains=keywords)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

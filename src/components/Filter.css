@@ -1,0 +1,48 @@
+.filter {
+  display: flex;
+  justify-content: left;
+  border: lightgrey solid 0.1px;
+  padding: 10px;
+  position: relative;
+}
+.filter button {
+  background-color: white;
+  border: lightgrey 0.1px solid;
+  padding: 5px 5px;
+  margin: 0 10px;
+  color: black;
+  font-size: 14px;
+  width: 100px;
+  color: darkslategray;
+}
+.filter .button__current {
+  border: darkcyan 1px solid;
+}
+.filter button:hover {
+  background-color: lightcyan;
+  border: darkslategray 1px solid;
+}
+.filter__input input {
+  width: 250px;
+  outline: none;
+  border: none;
+  align-items: center;
+}
+.filter__input {
+  font-size: 14px;
+  border: solid darkcyan 1px;
+  display: flex;
+  padding: 5px;
+}
+
+.forsale__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 22%;
+  background-color: white;
+  z-index: 1000;
+}
+.forsale__dropdown__list {
+  display: flex;
+  flex-direction: column;
+}

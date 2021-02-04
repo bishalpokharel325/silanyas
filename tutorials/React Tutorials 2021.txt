@@ -1,0 +1,469 @@
+Project:1:
+
+
+SANJAL APPLICATION:
+
+..................................
+Techonoly used:
+.........................
+React+React Hooks
+React context Api Redux pattern
+Material UI
+Flexbox css
+Firebase database
+Firebase hosting
+Google authentication
+React flip move animation after status smoothly aune
+..........................
+
+
+
+#1) Installation:
+
+
+
+i)  install node js and check if nodejs is installed or not: node --version 
+ii) Check if npm is installed or not using: npm --version
+iii) npm install -g create-react-app
+iv) create-react-app blog
+
+it will take lot of time so untilll it finish setup firebase setup 2
+<<<<<<<<<<yesle dherai time laucha....>>>>>>>>>>
+
+
+
+v) cd blog>>> code . garda vs code open huncha
+
+vi) import material UI icons: in same folder as project folder
+
+npm install @material-ui/core
+npm install @material-ui/icons
+
+vii) npm start garne in terminal
+
+viii) install necessary snippets from vs code:
+
+a) ES6 for react snippets
+b) simple react snippets
+
+
+
+
+#2) Initiate Firebase:
+
+step-1: go to https://console.firebase.google.com/u/1/ and click on create project
+step-2: give name of project and choose if you want to use google analytics
+
+only upto here first....
+
+step-3: in dashbord click on web script... copy the npm link and paste in terminal
+step-4:firebase login
+step 5: firebase init
+step-6: click on yes and click on deployment and hosting middle option
+step-7: existing folder
+step-8: public directory; build
+step-9: single page yes
+step-10: github no
+step-11: npm run build
+step-12: firebase deploy
+
+
+#3) Clean Up process:
+
+
+clean up process:
+i) go to src and delete app.test.js, logo.svg, and setuptests.js
+ii) delete header tags in App.js also the import of logo
+iii) replace with <h1>hello world</h1>
+iv) we use BEM(learn it) naming convention:
+className change to "app">  app lekhda margin deyena App lagauda deo
+
+v) go to App.css and delete everything
+vi) keep margin 0 in index.css
+*{
+margin:0;
+}
+
+
+Rules in react:
+	1) Components, Css file name must start from Capital letter.
+	2) css classNames must have double __ underscrolls between spaces and -- for 
+
+
+#4) Draw your outline plan for project:
+......................................
+
+Project will have:
+
+............Header Component.................
+div.header__left..........div.header__middle .................. div.header__right
+..logo				..header__options*5			..div.profile
+..div.input				..icons					..logo
+	..search logo								..text							
+	..input								..button icon..icon									
+
+
+#5) Create Component life cycle(do every time this process to make a component)
+
+step 1:create Header.js file in src folder
+step 2:create Header.css file in src folder
+step 3:in Header.js give className
+<div className="header">
+step 4: import Header.css in Header.js
+step 5: test <h1>Header</h1> inside div to see in screen
+step 6: use <Header/> and ctrl+space garera import that component
+<Header ctrl+space
+
+
+#How to put MUI in react?
+
+go to material ui and search for icon
+copy import code and paste it
+put font size 
+
+#How to target MUI from css?
+
+.MuiSvgIcon-root
+
+#How to target all Icon as prop?
+<Icon/> pass component
+Capitalize hunu parxa
+
+
+#6) Code Header.js 
+
+
+import React from 'react'
+import './Header.css'
+import logo from './images/logo.jpg'
+import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
+import FlagIcon from '@material-ui/icons/Flag';
+import SubscriptionsIcon from '@material-ui/icons/Subscriptions';
+import StorefrontIcon from '@material-ui/icons/Storefront';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import { Avatar, IconButton } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ForumIcon from '@material-ui/icons/Forum';
+
+
+function Header() {
+    return (
+        <div className="header">
+            <div className="header__left">
+                <img src={logo} alt="logo"/>
+                <div className="header__input" placeholder="Search">
+                    <SearchIcon/>
+                    <input type="text"/>
+                </div>
+            </div>
+            <div className="header__middle">
+                <div className="header__options">
+                    <HomeIcon fontSize="large"/>
+                </div>
+                <div className="header__options header__options--active"><FlagIcon fontSize="large"/></div>
+                <div className="header__options"><SubscriptionsIcon fontSize="large" /></div>
+                <div className="header__options"><StorefrontIcon fontSize="large" /></div>
+                <div className="header__options"><SupervisedUserCircleIcon fontSize="large" /></div>          
+            </div>
+            <div className="header__right">
+                <div className="header__info">
+                <Avatar/>
+                <h3>Bishal</h3>
+                </div>
+                <IconButton>
+                    <AddIcon/>
+                </IconButton>
+                <IconButton>
+                    <ForumIcon />
+                </IconButton>
+
+                <IconButton>
+                    <NotificationsActiveIcon />
+                </IconButton>
+                <IconButton>
+                    <ExpandMoreIcon/>
+                </IconButton>
+            </div>
+        </div>
+    )
+}
+
+export default Header
+
+#7) Style Header.css:
+.header{
+    display:flex;
+    padding:15px 20px;
+    justify-content: space-between;
+    position:sticky;
+    background-color: white;
+    top:0;
+    box-shadow: 0px 8px 5px -9px rgba(0,0,0,0.75);
+    z-index:999;
+
+}
+.header__left >img{
+    height:50px;
+    border-radius: 25px;
+}
+.header__left{
+    display:flex;
+    justify-content: space-between;
+}
+.header__input{
+    display:flex;
+    align-items: center;
+    background-color:#eff2f5;
+    padding:10px;
+    margin-left:10px;
+    border-radius: 25px;
+}
+.header__input >input{
+    border:none;
+    background-color: transparent;
+    outline-width: 0px;
+}
+.header__middle{
+    display:flex;
+    justify-content: space-between;
+    flex:1;
+    justify-content: center;
+}
+.header__options{
+    display:flex;
+    align-items: center;
+    padding:0 30px;
+    cursor:pointer;
+
+}
+.header__options:hover {
+    background-color:#eff2f5 ;
+    border-radius: 10px;
+    align-items: center;
+    border-bottom: none;
+
+}
+.header__options >.MuiSvgIcon-root{
+    color:grey;
+}
+.header__options:hover>.MuiSvgIcon-root{
+    color:#2e81f4;    
+}
+.header__right{
+    display:flex;
+}
+.header__info{
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+    padding:0 10px;
+}
+.header__info:hover {
+    background-color:#eff2f5;
+    border-radius: 10px;
+}
+.header__options--active{
+    border-bottom: 4px solid #2e81f4;
+}
+.header__options--active>.MuiSvgIcon-root{
+    color:#2e81f4;
+}
+
+
+#7) Plan for Body portions App__body portion
+
+#Body does not have a component
+div.App__body
+..<Sidebar/>
+..<Feed/>
+..<Widgets/>
+
+
+
+
+
+import './App.css';
+import Header from './Header';
+
+function App() {
+  return (
+    <div className="app">
+      <Header/>
+      <div className="App__body">
+        <Sidebar/>
+	<Feed/>
+	<Widgets/>
+	<Feed/>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+
+#8) Design and Draw Sidebar:
+<Sidebar/> will have sub-child component: 
+	<SidebarItem title={} src={} Icon={}/>
+Each side bar will have either, text or avatar or Icon 
+So we use prop for this.
+
+#9) Follow the Component making process and create Sidebar.js,Sidebar.css and necessary imports
+#10) Follow the component making process and create SidebarItem.js SidebarItem.css
+.................................................
+#11) Design:  <SidebarItem title={} src={} Icon={}/>
+
+
+import { Avatar,Icon} from '@material-ui/core'
+import React from 'react'
+import './SidebarRow.css'
+
+function SidebarRow({title,Icon,src}) {
+    return (
+        <div className="sidebar__row">
+            {src && <Avatar src={src}/>}    
+            {Icon && <Icon/>}
+            {title && <h5>{title}</h5>}
+        </div>
+    )
+}
+
+export default SidebarRow
+...................
+#12) Style Sidebars :
+
+
+
+
+
+
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+1) npm install react-router-dom
+2) Create file Router.js
+3) in Router.js
+
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
+
+4) replace div with:
+ import React from 'react'
+import './Routes.css'
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import Main from './Main'
+import About from './About'
+
+function Routes() {
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact component={Main}>
+                
+                </Route>
+                <Route path="/home" component={Main}>
+                
+                </Route>
+                <Route path="/about" component={About}>
+                
+                </Route>
+            </Switch>
+        </BrowserRouter>
+    )
+}
+
+export default Routes
+
+5)  Navbar.js
+
+import React from 'react'
+import { Link } from 'react-router-dom';
+function Navbar() {
+    return (
+        <div>
+            <Link to="/"><span>Home</span></Link>
+            <Link to="/about"><span>About</span></Link>
+        </div>
+    )
+}
+
+export default Navbar
+
+
+
+
+
+6) Footer.js
+
+import React from 'react'
+
+function Footer() {
+    return (
+        <div>
+            <h1>Footer Contents</h1>
+        </div>
+    )
+}
+
+export default Footer
+
+
+7) Home.js
+import React from 'react'
+import Footer from './Footer'
+import Navbar from './Navbar'
+
+function Main() {
+    return (
+        <div>
+            <Navbar/>
+            Main Page
+            <Footer/>
+            
+        </div>
+    )
+}
+
+export default Main
+
+
+8) About.js
+
+import React from 'react'
+import Footer from './Footer'
+import Navbar from './Navbar'
+
+function About() {
+    return (
+        <div>
+            <Navbar/>
+            About us page
+            <Footer/>
+        </div>
+    )
+}
+
+export default About
+
+
+
+........................
+Integrate Bootstrap with react js
+.....................
+1) What are number of uis?
+
+>> Bootstrap>> ReactBootstrap>> MaterialUi> Prime React
+
+
+
+ReactBootstrap >>> All components of bootstrap but they treat them as components and props
+
+<div className="story" style={{ backgroundImage: `url(${isrc})` }}>
+            <Avatar className="avatar" src={asrc}/>
+            <h5>{title}</h5>
+        </div>
+  
+
+
+
